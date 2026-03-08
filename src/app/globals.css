@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}
+
+.section {
+  @apply mx-auto w-full max-w-site px-4 py-16 md:py-24;
+}

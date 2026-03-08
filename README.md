@@ -1,25 +1,51 @@
-# expo.fyi
+# Sovereign TruckGuard LLC Web
 
-**tl;dr:** it's a tool to link people to markdown files in [https://github.com/expo/fyi](https://github.com/expo/fyi) with a concise and pretty link. For example, [https://expo.fyi/bundle-identifier](https://expo.fyi/bundle-identifier)
+Aplicación Next.js (App Router) lista para deploy en Vercel.
 
-## What is it?
+## Stack
+- Next.js + TypeScript
+- Tailwind CSS
+- Componentes base estilo shadcn/ui
+- React Hook Form + Zod
+- Route Handlers para formularios
 
-This website is a useful URL shortener that redirects users to a markdown file on the [https://github.com/expo/fyi](https://github.com/expo/fyi) repository. For example, [https://expo.fyi/bundle-identifier](https://expo.fyi/bundle-identifier) will redirect the user to [https://github.com/expo/fyi/blob/master/bundle-identifier.md](https://github.com/expo/fyi/blob/master/bundle-identifier.md).
+## Setup local
+1. `npm install`
+2. `cp .env.example .env.local`
+3. `npm run dev`
+4. Abrir `http://localhost:3000`
 
-It is useful to remove any friction to create a shareable link to a persistent explanation of some piece of knowledge that is useful to developers using Expo tools.
+## Build producción
+- `npm run build`
+- `npm run start`
 
-## Why might I want to use this?
+## Variables de entorno
+- `NEXT_PUBLIC_SITE_URL`: URL canónica pública.
+- `NEXT_PUBLIC_GA_ID`: ID de GA4 (opcional).
+- `FORMS_WEBHOOK_URL`: webhook para conectar CRM / Resend / Email.
 
-Imagine that you're working on [Expo CLI](https://docs.expo.dev/more/expo-cli/) and want to add more context on some terminology that you are using in a prompt to the user. Maybe you need to ask them for a "bundle identifier". You want to make sure that the user has easy access to more information about what that means, but you don't want to inline a whole explanation of it and crowd the interface. At the same time, you can't be bothered to create a docs page for this, or maybe the existing docs page doesn't provide the most relevant context for the situation the user is in. That's understandable. So instead let's just create an FYI!
+## Formularios e integraciones
+Todos los forms envían a `/api/forms/*`.
+- Sin `FORMS_WEBHOOK_URL` trabajan en modo mock (respuesta exitosa).
+- Para conectar CRM/email, configura el webhook y recibe payload con `{ kind, data }`.
 
-## How do I create an FYI?
+## Analytics
+Eventos listos en cliente:
+- `home_cta_click`
+- `metodo_cta_click`
+- `simulador_start`
+- `simulador_complete`
+- `simulador_result_view`
+- `diagnostico_submit`
+- `contacto_submit`
 
-- Go to [https://github.com/expo/fyi](https://github.com/expo/fyi).
-- Click "Create a new file".
-- Pick a name for it and include the `.md` extension. If you are teaching people about the "tunnel" connection type in expo-cli, maybe you want to call it `tunnel-connection.md` and then the URL will be [https://expo.fyi/tunnel-connection](https://expo.fyi/tunnel-connection).
+## Deploy en Vercel
+1. Importar repositorio en Vercel.
+2. Configurar variables de entorno del `.env.example`.
+3. Build command: `npm run build`.
+4. Output: automático de Next.js.
+5. Deploy.
 
-## FYI
-
-- You can add any arbitrary string like `this-does-not-exist` to the URL and it will just bring you to the GitHub 404 pages: [https://expo.fyi/this-does-not-exist](https://expo.fyi/this-does-not-exist). You probably do not want to do this, so instead create a file and link to it, and don't delete the file if it's linked to from somewhere already.
-- If you go to [https://expo.fyi](https://expo.fyi) it will just redirect you to the GitHub repo.
-- You can create your own domain like this by cloning [https://github.com/expo/expo-fyi](https://github.com/expo/expo-fyi) &mdash; a small service that you can deploy to, for example, Vercel or Netlify. Customize the URLs it uses in [index.js](https://github.com/expo/expo-fyi/blob/master/index.js).
+## Mockeado actualmente
+- Conector externo de formularios (mock hasta definir `FORMS_WEBHOOK_URL`).
+- Entradas de blog (estáticas, reemplazar por CMS o MDX).

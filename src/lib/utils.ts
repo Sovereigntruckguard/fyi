@@ -1,0 +1,8 @@
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sovereigntruckguard.com";
